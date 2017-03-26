@@ -42,27 +42,27 @@ public class Model {
         transaction.withAttribute("time", DataType.STRING);
         transaction.withAttribute("note",DataType.STRING);
 
-       // the account in user
-       user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
+        // the account in user
+        user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
 
-       //transactions toAccount
-       account.withBidirectional(transaction, "credit",Cardinality.MANY,"fromAccount",Cardinality.ONE);
+        //transactions toAccount
+        account.withBidirectional(transaction, "credit",Cardinality.MANY,"fromAccount",Cardinality.ONE);
 
-       //transactions fromAccount
-       account.withBidirectional(transaction, "debit",Cardinality.MANY,"toAccount",Cardinality.ONE);
+        //transactions fromAccount
+        account.withBidirectional(transaction, "debit",Cardinality.MANY,"toAccount",Cardinality.ONE);
 
 
-       Storyboard storyboard = new Storyboard();
-       storyboard.add("This shows the class diagram.");
-       storyboard.addClassDiagram(model);
+        Storyboard storyboard = new Storyboard();
+        storyboard.add("This shows the class diagram.");
+        storyboard.addClassDiagram(model);
 
-       // add it to the storyboard
-       storyboard.addObjectDiagram(user);
+        // add it to the storyboard
+        storyboard.addObjectDiagram(user);
 
-       // show it in html
-       storyboard.dumpHTML();
+        // show it in html
+        storyboard.dumpHTML();
 
-       model.generate();
+        model.generate();
     }
 }
 
