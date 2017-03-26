@@ -15,7 +15,7 @@ public class Model {
 
     public static void main(String[] args) {
         //create class model
-        ClassModel model = new ClassModel("net.Red.atm");
+        ClassModel model = new ClassModel("org.sdmlib.openbank");
 
 
         // create class user
@@ -26,6 +26,40 @@ public class Model {
         user.withAttribute("UserID",DataType.STRING);
         //user.withAttribute("DOB",DataType.STRING);
 
+        // create class Account
+        Clazz account = model.createClazz("Account");
+
+        account.withAttribute("balance", DataType.DOUBLE);
+        account.withAttribute("accountnum",DataType.INT);
+        account.withAttribute("creationdate", DataType.STRING);
+
+        // create class Transaction
+        Clazz transaction = model.createClazz("Transaction");
+
+        transaction.withAttribute("amount", DataType.DOUBLE);
+        transaction.withAttribute("date",DataType.STRING);
+        transaction.withAttribute("time", DataType.STRING);
+        transaction.withAttribute("note",DataType.STRING);
+
+        // the account in user
+        user.withBidirectional(account, "account", Cardinality.MANY, "owner", Cardinality.ONE);
+
+        //transactions toAccount
+        account.withBidirectional(transaction, "credit",Cardinality.MANY,"fromAccount",Cardinality.ONE);
+
+        //transactions fromAccount
+        account.withBidirectional(transaction, "debit",Cardinality.MANY,"toAccount",Cardinality.ONE);
+
+
+        Storyboard storyboard = new Storyboard();
+        storyboard.add("This shows the class diagram.");
+        storyboard.addClassDiagram(model);
+
+        // add it to the storyboard
+        storyboard.addObjectDiagram(user);
+
+        // show it in html
+        storyboard.dumpHTML();
 
         model.generate();
     }
