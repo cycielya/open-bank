@@ -4,6 +4,10 @@ import org.sdmlib.models.pattern.PatternObject;
 import net.Red.atm.User;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import net.Red.atm.util.AccountPO;
+import net.Red.atm.Account;
+import net.Red.atm.util.UserPO;
+import net.Red.atm.util.AccountSet;
 
 public class UserPO extends PatternObject<UserPO, User>
 {
@@ -162,4 +166,43 @@ public class UserPO extends PatternObject<UserPO, User>
       return this;
    }
    
+   public AccountPO createAccountPO()
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(User.PROPERTY_ACCOUNT, result);
+      
+      return result;
+   }
+
+   public AccountPO createAccountPO(String modifier)
+   {
+      AccountPO result = new AccountPO(new Account[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(User.PROPERTY_ACCOUNT, result);
+      
+      return result;
+   }
+
+   public UserPO createAccountLink(AccountPO tgt)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_ACCOUNT);
+   }
+
+   public UserPO createAccountLink(AccountPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, User.PROPERTY_ACCOUNT, modifier);
+   }
+
+   public AccountSet getAccount()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((User) this.getCurrentMatch()).getAccount();
+      }
+      return null;
+   }
+
 }

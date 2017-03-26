@@ -13,9 +13,13 @@ import org.sdmlib.storyboards.Storyboard;
  */
 public class Model {
 
-    public static void main(String[] args) {
+      /**
+    * 
+    * @see <a href='../../../../../../doc/Model.html'>Model.html</a>
+ */
+   public static void main(String[] args) {
         //create class model
-        ClassModel model = new ClassModel("org.sdmlib.openbank");
+        ClassModel model = new ClassModel("net.Red.atm");
 
 
         // create class user
